@@ -6,13 +6,20 @@ interface Permission {
 }
 
 interface ResPermissionsApi extends Res {
-  data: Permission[];
+  data?: PagingRes<Permission>;
 }
 
 interface CustomPermissionState {
-  loading: boolean;
-  currentRequestId?: string;
-  error?: string;
-  permissions?: Permission[]; 
-  currentUserPermissions?: Permission[];
+  permissions: {
+    loading: boolean;
+    currentRequestId?: string;
+    error?: string;
+    data?: PagingRes<Permission>;
+  };
+  currentUserPermissions: {
+    loading: boolean;
+    currentRequestId?: string;
+    error?: string;
+    data?: PagingRes<Permission>;
+  };
 }

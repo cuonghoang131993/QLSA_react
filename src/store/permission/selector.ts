@@ -1,21 +1,21 @@
 import { createTypedDraftSafeSelector } from "..";
 
-export const selectLoading = createTypedDraftSafeSelector(
+export const selectCurrentUserPermissionsLoading = createTypedDraftSafeSelector(
   (state: RootState) => state.permission,
-  (permission: CustomPermissionState) => permission.loading,
+  (permission: CustomPermissionState) => permission.currentUserPermissions.loading,
 )
 
-export const selectError = createTypedDraftSafeSelector(
+export const selectCurrentUserPermissionsError = createTypedDraftSafeSelector(
   (state: RootState) => state.permission,
-  (permission: CustomPermissionState) => permission.error,
+  (permission: CustomPermissionState) => permission.currentUserPermissions.error,
 )
 
 export const selectPermissionsList = createTypedDraftSafeSelector(
   (state: RootState) => state.permission,
-  (permission: CustomPermissionState) => permission.permissions,
+  (permission: CustomPermissionState) => permission.permissions.data,
 )
 
-export const selectCurrentUserPermissions = createTypedDraftSafeSelector(
+export const selectCurrentUserPermissionsList = createTypedDraftSafeSelector(
   (state: RootState) => state.permission,
-  (permission: CustomPermissionState) => permission.currentUserPermissions,
+  (permission: CustomPermissionState) => permission.currentUserPermissions.data,
 )

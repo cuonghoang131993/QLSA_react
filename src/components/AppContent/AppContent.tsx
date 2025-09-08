@@ -5,14 +5,14 @@ import routes from "routes/routes";
 import Loading from "../Loading/Loading";
 import { useAppSelector } from "store/index";
 import {
-  selectCurrentUserPermissions,
-  selectLoading,
+  selectCurrentUserPermissionsList,
+  selectCurrentUserPermissionsLoading,
 } from "store/permission/selector";
 import { isRoutePermitted } from "utils/permissions";
 
 const AppContent = () => {
-  const loadingPermissions = useAppSelector(selectLoading);
-  const currentUserPermissions = useAppSelector(selectCurrentUserPermissions);
+  const loadingPermissions = useAppSelector(selectCurrentUserPermissionsLoading);
+  const currentUserPermissions = useAppSelector(selectCurrentUserPermissionsList);
 
   if (loadingPermissions && !currentUserPermissions) return <Loading />;
 
@@ -23,7 +23,7 @@ const AppContent = () => {
           .filter((route) =>
             isRoutePermitted(
               route.permissions ?? [],
-              currentUserPermissions?.map((r) => r.RoleId ?? "") ?? []
+              currentUserPermissions?.Items?.map((r) => r.FunctionId ?? "") ?? []
             )
           )
           .map((route, idx) => {

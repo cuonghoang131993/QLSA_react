@@ -55,7 +55,6 @@
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src/",
     "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
     "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
-    "postinstall": "flowbite-react register",
     "prepare": "husky",
     "lint-staged": "lint-staged"
   },
@@ -80,7 +79,6 @@
   "lint-staged": {
     "*.ts": [
       "npm run lint",
-      "npm run format",
       "git add ."
     ]
   }

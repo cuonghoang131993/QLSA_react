@@ -5,7 +5,7 @@ export const getPermissions = createAsyncThunk(
   "permission/list",
   async (_, { requestId, getState, rejectWithValue }) => {
     try {
-      const { loading, currentRequestId } = (getState() as RootState).permission;
+      const { loading, currentRequestId } = (getState() as RootState).permission.permissions;
       if (!loading || requestId !== currentRequestId) {
         return;
       }
@@ -14,7 +14,7 @@ export const getPermissions = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      rejectWithValue("Something went wrong!");
+      rejectWithValue({ error });
     }
   }
 );
@@ -23,7 +23,7 @@ export const currentUserPermissions = createAsyncThunk(
   "permission/currentUserPermissions",
   async (_, { requestId, getState, rejectWithValue }) => {
     try {
-      const { loading, currentRequestId } = (getState() as RootState).permission;
+      const { loading, currentRequestId } = (getState() as RootState).permission.currentUserPermissions;
       if (!loading || requestId !== currentRequestId) {
         return;
       }
@@ -32,7 +32,7 @@ export const currentUserPermissions = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      rejectWithValue("Something went wrong!");
+      rejectWithValue({ error });
     }
   }
 );

@@ -1,12 +1,25 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
-import { useAppSelector } from "react-redux";
-import { selectIsCloseSideNav } from "store/app/selector";
 import { twMerge } from "tailwind-merge";
+import { selectIsCloseSideNav } from "store/app/selector";
 import routes from "routes/routes";
+import { useAppSelector } from "store/index";
+import { isRoutePermitted } from "utils/permissions";
+import {
+  selectCurrentUserPermissionsList,
+  selectCurrentUserPermissionsLoading,
+} from "store/permission/selector";
+import Loading from "./Loading/Loading";
 
 const SideNav = () => {
   const closeSideNav = useAppSelector(selectIsCloseSideNav);
+  const loadingPermissions = useAppSelector(
+    selectCurrentUserPermissionsLoading
+  );
+  const currentUserPermissions = useAppSelector(
+    selectCurrentUserPermissionsList
+  );
+
+  if (loadingPermissions && !currentUserPermissions) return <Loading />;
 
   return (
     <nav
@@ -26,27 +39,34 @@ const SideNav = () => {
         </a>
       </h1>
       <ul className="p-0 list-unstyled mb-5 transition duration-300">
-        {routes?.map((route) => {
-          return (
-            <li key={route.name} className="text-base">
-              <NavLink
-                className={
-                  "h-14 py-4 px-6 flex items-center text-white border-b border-white/10 active:bg-main-600"
-                }
-                to={route.path}
-              >
-                <img
-                  className="w-5 h-auto inline-block mr-4"
-                  src={route.srcImg}
-                  alt=""
-                />
-                <span className={closeSideNav ? "hidden" : ""}>
-                  {route.name}
-                </span>
-              </NavLink>
-            </li>
-          );
-        })}
+        {routes
+          ?.filter((route) =>
+            isRoutePermitted(
+              route.permissions ?? [],
+              currentUserPermissions?.Items?.map((r) => r.FunctionId ?? "") ?? []
+            )
+          )
+          .map((route) => {
+            return (
+              <li key={route.name} className="text-base">
+                <NavLink
+                  className={
+                    "h-14 py-4 px-6 flex items-center text-white border-b border-white/10 active:bg-main-600"
+                  }
+                  to={route.path}
+                >
+                  <img
+                    className="w-5 h-auto inline-block mr-4"
+                    src={route.srcImg}
+                    alt=""
+                  />
+                  <span className={closeSideNav ? "hidden" : ""}>
+                    {route.name}
+                  </span>
+                </NavLink>
+              </li>
+            );
+          })}
       </ul>
       <div className={twMerge("py-0 px-8", closeSideNav ? "hidden" : "")}>
         <p>

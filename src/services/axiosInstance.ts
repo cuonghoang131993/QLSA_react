@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
   timeout: 30000,
   withCredentials: true,
   headers: {
-    "accept": "*/*",
+    accept: "*/*",
     "Content-Type": "application/json",
   },
 });
@@ -25,12 +25,15 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-
-      console.error('Unauthorized access. Redirecting to login...');
+      console.error("Unauthorized access. Redirecting to login...");
       // window.location.href = `${PATH.LOGIN}?returnUrl=${window.location.pathname}`;
     }
 
-    return Promise.reject(error);
+    if (process.env.NODE_ENV !== "production") {
+      return Promise.reject(error);
+    }
+
+    return Promise.reject("Something went wrong!");
   }
 );
 

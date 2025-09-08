@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect } from "react";
-import { useAppSelector } from "react-redux";
-import { useAppDispatch } from "store";
+import { useAppDispatch, useAppSelector } from "store";
 import { getPrograms } from "store/program/action";
 import {
   selectGetProgramReq,

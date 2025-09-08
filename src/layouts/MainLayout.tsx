@@ -4,11 +4,14 @@ import Header from "components/Header";
 import SideNav from "components/SideNav";
 import AppContent from "components/AppContent/AppContent";
 import { useAppDispatch } from "store/index";
-import { getPermissions, currentUserPermissions } from "store/permission/action";
+import {
+  getPermissions,
+  currentUserPermissions,
+} from "store/permission/action";
 
 const MainLayout = () => {
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     dispatch(getPermissions());
     dispatch(currentUserPermissions());
@@ -25,6 +28,6 @@ const MainLayout = () => {
       </main>
     </div>
   );
-}
+};
 
 export default MainLayout;

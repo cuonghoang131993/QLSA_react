@@ -29,8 +29,8 @@ export const logout = createAsyncThunk(
       dispatch(LogoutSuccess());
 
       return {};
-    } catch (_) {
-      rejectWithValue("Something went wrong!");
+    } catch (error) {
+      rejectWithValue({ error });
     }
   }
 );
@@ -49,8 +49,8 @@ export const currentUser = createAsyncThunk(
       dispatch(loginSuccess());
 
       return response.data;
-    } catch (_) {
-      rejectWithValue("Something went wrong!");
+    } catch (error) {
+      rejectWithValue({ error });
     }
   }
 );
