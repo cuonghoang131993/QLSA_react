@@ -20,7 +20,7 @@ export const rootReducer = combineReducers({
   program: programReducer,
 });
 
-export function setupStore(preloadedState?: Partial<RootState>): any {
+export function setupStore(preloadedState?: Partial<RootState>) {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>

@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from "react";
 import { render } from "@testing-library/react";
 import type { RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { Store } from "@reduxjs/toolkit";
 
 import { setupStore } from "store/index";
 // As a basic setup, import your same slice reducers
@@ -10,7 +11,7 @@ import { setupStore } from "store/index";
 // as allows the user to specify other things such as initialState, store.
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: Partial<RootState>;
-  store?: RootState;
+  store?: Store;
 }
 
 export function renderWithProviders(

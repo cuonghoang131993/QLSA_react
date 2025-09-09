@@ -4,14 +4,14 @@ import { waitFor, screen } from "@testing-library/react";
 import App from "./App";
 import * as store from "store/index";
 
-const mockNavigate = jest.fn();
+const mockFn = jest.fn();
 // Mock the useRoutes hook
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"), // Import and retain default exports
   useRoutes: jest.fn().mockReturnValue(<div>Mocked Route Content</div>), // Mock the useRoutes function
-  useNavigate: () => mockNavigate,
+  useNavigate: () => mockFn,
 }));
-jest.spyOn(store, "useAppDispatch").mockReturnValue(() => {});
+jest.spyOn(store, "useAppDispatch").mockReturnValue(mockFn);
 
 describe("App tests", () => {
   it("should contains the heading in login page 1", async () => {
